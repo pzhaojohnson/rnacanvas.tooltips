@@ -32,7 +32,16 @@ export class Tooltip {
   }
 
   set textContent(textContent) {
+    let wasBeingShown = !this.#isHidden();
+
+    this.#hide();
+
     this.#text.textContent = textContent;
+
+    if (wasBeingShown) {
+      // hide and reshow to reposition the tooltip
+      this.#show();
+    }
   }
 
   get owner() {
@@ -82,5 +91,9 @@ export class Tooltip {
 
   #hide() {
     this.#domNode.remove();
+  }
+
+  #isHidden(): boolean {
+    return !document.body.contains(this.#domNode);
   }
 }
