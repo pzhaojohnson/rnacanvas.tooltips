@@ -9,7 +9,7 @@ export class Tooltip {
 
   readonly #triangle = document.createElement('div');
 
-  #padding = 2;
+  #padding = 5;
 
   #owner: Element | undefined;
 
