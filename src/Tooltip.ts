@@ -63,10 +63,14 @@ export class Tooltip {
       return; // nothing else to do
     }
 
-    let bbox = Box.matching(this.#domNode.getBoundingClientRect());
+    let width = this.#domNode.getBoundingClientRect().width;
 
-    let width = bbox.width;
-    let height = bbox.height;
+    let textHeight = this.#text.getBoundingClientRect().height;
+
+    // must divide by 2 due to the border "trick" used to render the triangle
+    let triangleHeight = this.#triangle.getBoundingClientRect().height / 2;
+
+    let height = textHeight + triangleHeight;
 
     let ownerBBox = Box.matching(this.#owner.getBoundingClientRect());
 
