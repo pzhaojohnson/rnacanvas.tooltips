@@ -7,7 +7,11 @@ export class Tooltip {
 
   readonly #text = document.createElement('p');
 
-  readonly #triangle = document.createElement('div');
+  /**
+   * Are overlayed to give the tooltip its "point".
+   */
+  readonly #whiteTriangle = document.createElement('div');
+  readonly #blackTriangle = document.createElement('div');
 
   #padding = 5;
 
@@ -23,8 +27,11 @@ export class Tooltip {
     this.#text.textContent = textContent;
     this.#domNode.append(this.#text);
 
-    this.#triangle.classList.add(styles['triangle']);
-    this.#domNode.append(this.#triangle);
+    this.#whiteTriangle.classList.add(styles['white-triangle']);
+    this.#domNode.append(this.#whiteTriangle);
+
+    this.#blackTriangle.classList.add(styles['black-triangle']);
+    this.#domNode.append(this.#blackTriangle);
   }
 
   get textContent() {
@@ -76,10 +83,11 @@ export class Tooltip {
 
     let textHeight = this.#text.getBoundingClientRect().height;
 
-    // must divide by 2 due to the border "trick" used to render the triangle
-    let triangleHeight = this.#triangle.getBoundingClientRect().height / 2;
+    // must divide by 2 due to the border "trick" used to render triangles
+    let whiteTriangleHeight = this.#whiteTriangle.getBoundingClientRect().height / 2;
 
-    let height = textHeight + triangleHeight;
+    // subtract 1 since the white triangle has -1px top margin
+    let height = textHeight + whiteTriangleHeight - 1;
 
     let ownerBBox = Box.matching(this.#owner.getBoundingClientRect());
 
