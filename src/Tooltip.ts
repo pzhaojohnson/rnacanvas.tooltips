@@ -15,6 +15,8 @@ export class Tooltip {
 
   #padding = 5;
 
+  #pointerDisplacement = 0;
+
   #owner: Element | undefined;
 
   #mouseOverListener = () => {};
@@ -73,6 +75,9 @@ export class Tooltip {
     this.#domNode.style.left = '0px';
     this.#domNode.style.top = '0px';
 
+    this.#whiteTriangle.style.marginLeft = `${this.#pointerDisplacement}px`;
+    this.#blackTriangle.style.marginLeft = `${this.#pointerDisplacement}px`;
+
     document.body.append(this.#domNode);
 
     if (!this.#owner) {
@@ -93,7 +98,7 @@ export class Tooltip {
 
     let paddedBBox = ownerBBox.padded(this.#padding);
 
-    this.#domNode.style.left = `${paddedBBox.peripheralPoint(3 * Math.PI / 2).x - (width / 2)}px`;
+    this.#domNode.style.left = `${paddedBBox.peripheralPoint(3 * Math.PI / 2).x - (width / 2) - this.#pointerDisplacement}px`;
     this.#domNode.style.top = `${paddedBBox.peripheralPoint(3 * Math.PI / 2).y - height}px`;
   }
 
@@ -114,6 +119,27 @@ export class Tooltip {
 
   set padding(padding) {
     this.#padding = padding;
+
+    if (!this.#isHidden()) {
+      this.#hide();
+      this.#show();
+    }
+  }
+
+  /**
+   * The displacement of the tooltip pointer from the center of the tooltip.
+   *
+   * Positive values result in displacement towards the right
+   * and negative values result in displacement towards the left.
+   *
+   * Given in units of CSS pixels.
+   */
+  get pointerDisplacement(): number {
+    return this.#pointerDisplacement;
+  }
+
+  set pointerDisplacement(pointerDisplacement) {
+    this.#pointerDisplacement = pointerDisplacement;
 
     if (!this.#isHidden()) {
       this.#hide();
