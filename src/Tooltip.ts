@@ -104,4 +104,20 @@ export class Tooltip {
   #isHidden(): boolean {
     return !document.body.contains(this.#domNode);
   }
+
+  /**
+   * The distance between the tip of the tooltip pointer and its owner element.
+   */
+  get padding() {
+    return this.#padding;
+  }
+
+  set padding(padding) {
+    this.#padding = padding;
+
+    if (!this.#isHidden()) {
+      this.#hide();
+      this.#show();
+    }
+  }
 }
