@@ -22,11 +22,11 @@ export class Tooltip {
   #mouseOverListener = () => {};
   #mouseOutListener = () => {};
 
-  constructor(textContent: string) {
+  constructor(textContent?: string) {
     this.#domNode.classList.add(styles['tooltip']);
 
     this.#text.classList.add(styles['text']);
-    this.#text.textContent = textContent;
+    this.#text.textContent = textContent ?? '';
     this.#domNode.append(this.#text);
 
     this.#whiteTriangle.classList.add(styles['white-triangle']);
