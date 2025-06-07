@@ -98,7 +98,7 @@ export class Tooltip {
 
     let paddedBBox = ownerBBox.padded(this.#padding);
 
-    this.#domNode.style.left = `${paddedBBox.peripheralPoint(3 * Math.PI / 2).x - (width / 2) - this.#pointerDisplacement}px`;
+    this.#domNode.style.left = `${paddedBBox.peripheralPoint(3 * Math.PI / 2).x - (width / 2) - (this.#pointerDisplacement / 2)}px`;
     this.#domNode.style.top = `${paddedBBox.peripheralPoint(3 * Math.PI / 2).y - height}px`;
   }
 
