@@ -22,6 +22,15 @@ export class Tooltip {
   #mouseOverListener = () => {};
   #mouseOutListener = () => {};
 
+  /**
+   * Hides the tooltip when its owner element is removed from the document body.
+   */
+  readonly #documentBodyObserver = new MutationObserver(() => {
+    if (this.owner && !document.body.contains(this.owner)) {
+      this.#hide();
+    }
+  });
+
   constructor(textContent?: string) {
     this.#domNode.classList.add(styles['tooltip']);
 
@@ -34,6 +43,9 @@ export class Tooltip {
 
     this.#blackTriangle.classList.add(styles['black-triangle']);
     this.#domNode.append(this.#blackTriangle);
+
+    // watch for the owner element being removed
+    this.#documentBodyObserver.observe(document.body, { childList: true, subtree: true });
   }
 
   get textContent() {
