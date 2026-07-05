@@ -1,6 +1,6 @@
 {
   "name": "@rnacanvas/tooltips",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Add tooltips",
   "repository": {
     "type": "git",
@@ -18,18 +18,19 @@
     "@babel/preset-env": "^7.23.7",
     "@babel/preset-typescript": "^7.23.3",
     "@types/jquery": "^3.5.32",
-    "babel-jest": "^29.7.0",
+    "babel-jest": "^30.4.1",
     "css-loader": "^7.1.2",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
-    "typescript": "^5.3.3",
+    "typescript": "^6.0.3",
     "webpack": "^5.89.0",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^7.2.1"
   },
   "dependencies": {
     "@rnacanvas/boxes": "^2.5.0",
+    "@rnacanvas/utilities": "^8.0.0",
     "jquery": "^3.7.1"
   }
 }

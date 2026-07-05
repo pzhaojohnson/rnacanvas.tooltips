@@ -2,6 +2,8 @@ import * as styles from './Tooltip.module.css';
 
 import { Box } from '@rnacanvas/boxes';
 
+import { splitLines } from '@rnacanvas/utilities';
+
 export class Tooltip {
   readonly #domNode = document.createElement('div');
 
@@ -35,7 +37,6 @@ export class Tooltip {
     this.#domNode.classList.add(styles['tooltip']);
 
     this.#text.classList.add(styles['text']);
-    this.#text.textContent = textContent ?? '';
     this.#domNode.append(this.#text);
 
     this.#whiteTriangle.classList.add(styles['white-triangle']);
@@ -46,6 +47,8 @@ export class Tooltip {
 
     // watch for the owner element being removed
     this.#documentBodyObserver.observe(document.body, { childList: true, subtree: true });
+
+    this.textContent = textContent ?? '';
   }
 
   get textContent() {
@@ -57,7 +60,8 @@ export class Tooltip {
 
     this.#hide();
 
-    this.#text.textContent = textContent;
+    // "\r\n" is a reliable way to cause a line break in a <p> element (with `white-space` CSS set to `pre-wrap`)
+    this.#text.textContent = splitLines(textContent).join('\r\n');
 
     if (wasBeingShown) {
       // hide and reshow to reposition the tooltip
