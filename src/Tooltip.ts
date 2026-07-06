@@ -69,6 +69,14 @@ export class Tooltip {
     }
   }
 
+  addLine(line: string): void {
+    if (this.textContent) {
+      this.textContent += '\r\n';
+    }
+
+    this.textContent += line;
+  }
+
   get owner() {
     return this.#owner;
   }

@@ -28,4 +28,20 @@ describe('`class Tooltip`', () => {
     // converts all newline characters to "\r\n"
     expect(tooltip.textContent).toBe('Line #1\r\nLine #2\r\nLine #3\r\nLine #4\r\n\r\n\r\nLine #7');
   });
+
+  test('`addLine()`', () => {
+    var tooltip = new Tooltip('asdf');
+
+    tooltip.addLine('qwer');
+
+    // uses "\r\n" between lines
+    expect(tooltip.textContent).toBe('asdf\r\nqwer');
+
+    var tooltip = new Tooltip();
+
+    tooltip.addLine('asdf');
+
+    // doesn't add "\r\n" when not necessary
+    expect(tooltip.textContent).toBe('asdf');
+  });
 });
